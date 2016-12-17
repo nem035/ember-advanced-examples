@@ -209,11 +209,15 @@ export default {
 
 - TODO
 
-### Heroku
+### Heroku & Travis ([Docs](https://docs.travis-ci.com/user/deployment/heroku/))
 
 ```bash
+# install travis gem
+gem install travis
+# setup travis with heroku
+travis setup heroku
 # create a new app
-heroku create
+heroku create <optional-app-name>
 # setup the ember buildpack
 heroku buildpacks:set https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/emberjs.tgz
 # push to heroku remote
