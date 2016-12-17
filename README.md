@@ -189,6 +189,30 @@ export default {
   )
   ```
 
+### Ember-App (in ember-cli-build.js)
+
+- Many broccoli plugins act on options passed to the EmberApp constructor
+- `ember build -prod` fingerprints the files and we have to [manually exclude](https://github.com/nem035/advanced-ember-examples/blob/master/ember-cli-build.js#L11) what we don't want fingerprinted
+
+### Environment
+
+- [`config/environment`](https://github.com/nem035/advanced-ember-examples/blob/master/config/environment.js) is where most per-environment switching takes place
+- baked into the build, via meta tag
+- module is available for client and server
+- many non-build-related ember addons will be customized in this file
+
+## Automated testing
+
+- Already setup for [travis-ci](https://travis-ci.org/) and [PhantomJS](http://phantomjs.org/)
+
+## Deployment
+
+- TODO
+
+### Heroku
+
+- Heroku
+
 ## License
 
 MIT

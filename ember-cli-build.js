@@ -8,7 +8,9 @@ var logTree = require('broccoli-stew').log;
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
-    // Add options here 
+    fingerprint: {
+      exclude: ['images/builtwith.png'] // exclude fingerprinting for the tomster
+    }
   });
 
   return new CustomHeaderPlugin(app.toTree());
