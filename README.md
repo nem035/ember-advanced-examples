@@ -211,8 +211,6 @@ export default {
 
 ### Heroku
 
-- Heroku
-
 ```bash
 # create a new app
 heroku create
