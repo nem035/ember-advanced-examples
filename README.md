@@ -5,10 +5,12 @@ Notes, patterns and examples for developing Ember applications.
 ## Container
 
 ### Debugging
+
 - Use **Container** tab in Ember Inspector
 - Use `$E.__container__` by pressing `$E` in the Inspector when in `application:main`
 
 ### Accessing instantiated factories
+
 - Proper way is using [`Ember.getOwner`](http://emberjs.com/api/#method_getOwner) and [`applicationInstance.lookup`](http://emberjs.com/api/classes/Ember.ApplicationInstance.html#method_lookup)
 
 ```js
@@ -16,6 +18,7 @@ const applicationRoute = Ember.getOwner(this).lookup('application:route');
 ```
 
 ### Usage
+
 - Great place for config objects
 
 ## [Resolver](https://github.com/ember-cli/ember-resolver)
@@ -45,6 +48,7 @@ app.import('vendor/myCoolModule.js', {
 ```
 
 ### Debugging
+
 - Use `$E.resolveRegistration('factoryType:name')` to get the constructor of the Resolve (by pressing `$E` in the Inspector when in `application:main`)
 
   For example `$E.resolveRegistration('route:application')`
@@ -127,6 +131,7 @@ export default {
 ```
 
 ### Instance Initializer (Immediately-After-Application-Constructor Logic)
+
 - Initializer after the [application instance](http://emberjs.com/api/classes/Ember.ApplicationInstance.html) has been created
 - Run after all non-instance initializers have ran
 - Access to a fully materialized container, store, etc...
@@ -149,6 +154,40 @@ export default {
 ```
 
 [See Initializer Example](https://github.com/nem035/advanced-ember-examples/blob/master/app/initializers/geolocation.js)
+
+## Build System
+
+### Broccoli
+
+- Cache intermediate build results
+
+- Think trees, not files
+  - A string is a tree
+  - Plugins are either N:N or N:1
+  - Think of trees as immutable data structures
+  - Plugins are chainable
+
+    - we are building a composable (chain) pipeline that will run later
+
+    - See Plugin Example
+
+### Debugging
+
+- Use [Broccoli Stew](https://github.com/stefanpenner/broccoli-stew)
+  - Main methods to use are [log](https://github.com/stefanpenner/broccoli-stew/blob/master/lib/log.js#L27) and [debug](https://github.com/stefanpenner/broccoli-stew/blob/master/lib/debug.js#L12)
+
+  ```js
+  // ember-cli-build.js
+  var debugTree = require('broccoli-stew').debug;
+
+  return new MyPlugin(
+    debugTree(
+      app.toTree(), {
+        name: 'my-debug' // Write to this folder a snapshot of our pipeline at a certain point
+      }
+    )
+  )
+  ```
 
 ## License
 
