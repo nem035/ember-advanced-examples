@@ -1,52 +1,75 @@
-# advanced-ember-examples
+# Advanced Ember Example
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+Notes, patterns and examples for developing Ember applications.
 
-## Prerequisites
+## Container
 
-You will need the following things properly installed on your computer.
+### Debugging
+- Use **Container** tab in Ember Inspector
+- Use `$E.__container__` by pressing `$E` in the Inspector when in `application:main`
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with NPM)
-* [Bower](https://bower.io/)
-* [Ember CLI](https://ember-cli.com/)
-* [PhantomJS](http://phantomjs.org/)
+### Accessing
+- Proper way is using [Ember.getOwner](http://emberjs.com/api/#method_getOwner)
 
-## Installation
+### Usage
+- Great place for config objects
 
-* `git clone <repository-url>` this repository
-* `cd advanced-ember-examples`
-* `npm install`
-* `bower install`
+## [Resolver](https://github.com/ember-cli/ember-resolver)
 
-## Running / Development
+- Given a container key, **Resolver** finds the appropriate [named AMD module](http://requirejs.org/docs/whyamd.html#namedmodules) and puts it in the container for us.
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
+- "Gives us the 'posts' controller" (regardless of how we organize our project structure)
 
-### Code Generators
+```js
+// named AMD module
+define('myCoolModule', ['dependentModuleA', 'dependentModuleB'], function(moduleA, moduleB) {
+  const defaultExport = em.default;
+  return {
+    default: {
+      hello: 'world'
+    }
+  };
+});
 
-Make use of the many generators for code, try `ember help generate` for more details
+const myModule = require('myCoolModule');
 
-### Running Tests
+// usage in ember-cli-build.js
+app.import('vendor/myCoolModule.js', {
+  exports: ['myCoolModule'] // select which export to take from `myCoolModule.js`
+});
+```
 
-* `ember test`
-* `ember test --server`
+### Debugging
+- Use `$E.resolveRegistration('type:name')` to get the constructor of the Resolve (by pressing `$E` in the Inspector when in `application:main`)
 
-### Building
+  For example `$E.resolveRegistration('route:application')`
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+- Use the `require` (for example `require._stats` and `require.entries`) global to inspect modules in your application
 
-### Deploying
+## Example
 
-Specify what it takes to deploy your app.
+- Custom Math module
 
-## Further Reading / Useful Links
+```js
+define('math', [], function() {
+  return {
+    default: Math,
+    PI: Math.PI
+  };
+});
 
-* [ember.js](http://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+const { default: math, PI } = require('math'); // Object {default: Math, PI: 3.141592653589793}
+
+math.sqrt(4);    // 2
+console.log(PI); // 3.145926
+
+// ES6 equivalent
+import { default as math, PI } from 'math';
+
+math.sqrt(4);    // 2
+console.log(PI); // 3.145926
+```
+
+## License
+
+MIT
