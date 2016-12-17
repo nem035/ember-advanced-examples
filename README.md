@@ -213,6 +213,15 @@ export default {
 
 - Heroku
 
+```bash
+# create a new app
+heroku create
+# setup the ember buildpack
+heroku buildpacks:set https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/emberjs.tgz
+# push to heroku remote
+git push heroku master
+```
+
 ## License
 
 MIT
