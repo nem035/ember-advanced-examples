@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- '4'
+sudo: false
+cache:
+  directories:
+  - $HOME/.npm
+  - $HOME/.cache
+before_install:
+- npm config set spin false
+- npm install -g bower
+- bower --version
+- npm install phantomjs-prebuilt
+- node_modules/phantomjs-prebuilt/bin/phantomjs --version
+install:
+- npm install
+- bower install
+script:
+- npm test
+deploy:
+  provider: heroku
+  api_key:
+    secure: LAXGUQNF6Uwd0rE6oPPA+Z1MeX28o6GAEzjFnp0WnbTLYurJfbRYSxeB+ZKRbuqsMuckSOy0r7+RxRCwEf4A5f3xs5xoT+T0TGsAI13nLHK6EdLKLgcBjR/bg+fvtxD1OmpO+zZ7fiRzpFJT8AWz52mEv0S6Nl+ZmYdjPn6GJ72VNNyRyzmJyzUOSSZARBrEkz17pqgjtxatbtqTq4B7Jl3h3o9wITTErmdBg78HGpAbSYeDQIwyrEg2gqOS7FmeXZw9wgz6K+YhTQVIzz7KTI28/hnK7z7cD0JO4T6P/WLrpjXMb3K2ZnlmM5jm8BE4In0SxRDQXCp8piSCC82fOxuMNfYxHMuON5RbDLRgMvNueAfTwA88Qs+FzO6ACJ3yn++8gyAawLjhf1eWyPI4PpCr5PECR28EWj7savv9BLrUHUG0nExiWAym/I3CathLHZEDVGAf3z6Bryd/xYJIxovzSIZBbrIHjnOVkahjQH4NlBpwVgjb5ZcoXLcYMNMIS+h8kKt4YQm7YgRD2MBAavYXoTCW/ew6nVO8AhHYkcQeLjYAcFyz6qJhgeZTxnqy8Z55nphIebYHJMGlqyE8T5jtta+gp/EoBAGgJK6/WWkiLEzxY/7HoGW5P6jTwHXrHES8Mn60/LB0yVo1uXkZH24yOHVjp1q8cAjykyXx+jU=
+  app: advanced-ember-examples
+  on:
+    repo: nem035/advanced-ember-examples
