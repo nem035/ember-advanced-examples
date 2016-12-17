@@ -15,6 +15,8 @@ export function initialize(application) {
 
     // we got the geolocation data, application is ready to continue booting
     application.advanceReadiness();
+
+    // log information if we're in debug environment
     Ember.runInDebug(() => {
       Ember.Logger.info(
         `registering "data:location": { lat: ${lat}, lng: ${lng}`
@@ -22,6 +24,7 @@ export function initialize(application) {
     });
 
     // register geolocation data
+    // can be accessed from any factory instance using Ember.getOwner(this).lookup('data:location')
     application.register('data:location', {
       lat,
       lng

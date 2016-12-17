@@ -74,7 +74,7 @@ math.sqrt(4);    // 2
 console.log(PI); // 3.145926
 ```
 
-## Initializers
+## Initializers (Example)
 
 - Primarily deal with factories and `application.register` and `application.resolveRegistration`
 
@@ -135,6 +135,8 @@ export default {
   initialize: initialize
 };
 ```
+
+Initializer Example
 
 ## License
 
