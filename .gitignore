@@ -17,3 +17,5 @@ npm-debug.log*
 testem.log
 jsconfig.json
 *.ts
+DEBUG-my-debug-1
+DEBUG-my-debug-2

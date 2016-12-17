@@ -169,7 +169,7 @@ export default {
 
     - we are building a composable (chain) pipeline that will run later
 
-    - See Plugin Example
+  - [See Plugin Example](https://github.com/nem035/advanced-ember-examples/blob/master/plugins/custom-header.js)
 
 ### Debugging
 
@@ -178,10 +178,10 @@ export default {
 
   ```js
   // ember-cli-build.js
-  var debugTree = require('broccoli-stew').debug;
+  var debug = require('broccoli-stew').debug;
 
   return new MyPlugin(
-    debugTree(
+    debug(
       app.toTree(), {
         name: 'my-debug' // Write to this folder a snapshot of our pipeline at a certain point
       }
