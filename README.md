@@ -1,4 +1,4 @@
-# Advanced Ember Example
+# Ember Advanced Examples
 
 Notes, patterns and examples for developing Ember applications.
 
@@ -80,7 +80,7 @@ math.sqrt(4);    // 2
 console.log(PI); // 3.145926
 ```
 
-## Initializers ([Example](https://github.com/nem035/advanced-ember-examples/blob/master/app/initializers/geolocation.js))
+## Initializers ([Example](https://github.com/nem035/ember-advanced-examples/blob/master/app/initializers/geolocation.js))
 
 - Primarily deal with factories and `application.register` and `application.resolveRegistration`
 
@@ -153,7 +153,7 @@ export default {
 };
 ```
 
-[See Initializer Example](https://github.com/nem035/advanced-ember-examples/blob/master/app/initializers/geolocation.js)
+[See Initializer Example](https://github.com/nem035/ember-advanced-examples/blob/master/app/initializers/geolocation.js)
 
 ## Build System
 
@@ -169,7 +169,7 @@ export default {
 
     - we are building a composable (chain) pipeline that will run later
 
-  - [See Plugin Example](https://github.com/nem035/advanced-ember-examples/blob/master/plugins/custom-header.js)
+  - [See Plugin Example](https://github.com/nem035/ember-advanced-examples/blob/master/plugins/custom-header.js)
 
 ### Debugging
 
@@ -192,11 +192,11 @@ export default {
 ### Ember-App (in ember-cli-build.js)
 
 - Many broccoli plugins act on options passed to the EmberApp constructor
-- `ember build -prod` fingerprints the files and we have to [manually exclude](https://github.com/nem035/advanced-ember-examples/blob/master/ember-cli-build.js#L11) what we don't want fingerprinted
+- `ember build -prod` fingerprints the files and we have to [manually exclude](https://github.com/nem035/ember-advanced-examples/blob/master/ember-cli-build.js#L11) what we don't want fingerprinted
 
 ### Environment
 
-- [`config/environment`](https://github.com/nem035/advanced-ember-examples/blob/master/config/environment.js) is where most per-environment switching takes place
+- [`config/environment`](https://github.com/nem035/ember-advanced-examples/blob/master/config/environment.js) is where most per-environment switching takes place
 - baked into the build, via meta tag
 - module is available for client and server
 - many non-build-related ember addons will be customized in this file

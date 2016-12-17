@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { initialize } from 'advanced-ember-examples/initializers/geolocation';
+import { initialize } from 'ember-advanced-examples/initializers/geolocation';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
 
