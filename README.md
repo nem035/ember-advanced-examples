@@ -257,6 +257,62 @@ git push heroku master
       }
     ```
 
+    [Guarding Example](https://github.com/nem035/ember-advanced-examples/blob/master/app/initializers/geolocation.js#L7)
+
+    - Server data on the client
+
+    ```js
+    export default Ember.Route.extend({
+      fastboot: Ember.inject.service(),
+
+      model() {
+        const headers = this.get('fastboot.request.headers');
+        const xRequestHeader = headers.get('X-Request');
+      }
+    })
+    ```
+
+  - We can use the [Shoebox](https://github.com/ember-fastboot/fastboot#the-shoebox) (prevents duplicate requests from server and client)
+    - stores data that get serialized into meta/script tags within the html on the server
+      and get grabbed by the client once the client is ready and allow access to
+      this data via a service
+
+      ```html
+      <!-- html when rendering on the server -->
+      <script type="fastboot/shoebox" id="shoebox-store-1">
+        ... json data goes here
+      </script>
+      ```
+
+      ```js
+      export default Ember.Route.extend({
+        fastboot: Ember.inject.service(),
+
+        model(params) {
+          // consuming data from the shoebox via the fastboot service
+          const shoebox = this.get('fastboot.shoebox');
+          // retrieve the shoebox we need
+          const shoeboxStore = shoebox.retrieve('shoebox-store-1');
+
+          if (this.get('fastboot.isFastBoot')) {
+            // if rendering on the fastboot server
+            return this.store.findRecord('stuff', params.id)
+              .then((data) => {
+                // lazily create the store
+                if (!shoeboxStore) {
+                  shoeboxStore = {};
+                  shoebox.put('shoebox-store-1', shoeboxStore);
+                }
+
+                // put the data in the store
+                shoeboxStore[params.id] = data.toJSON();
+              });
+          }
+        }
+      })
+      ```
+  - ([Shoebox and server data on the client example](https://github.com/nem035/ember-advanced-examples/blob/master/app/instance-initializers/request-headers.js))
+
 ## License
 
 MIT
