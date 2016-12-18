@@ -8,12 +8,12 @@ function CustomHeaderPlugin(inputNode) {
 CustomHeaderPlugin.prototype = Object.create(Filter.prototype);
 
 function header(path) {
-  return '/** \n * ' + path + ' \n * \n * author 🍔🍇🍈🍉🍊 ' + 
+  return '/** \n * ' + path + ' \n * \n * author SomeCoolDude ' +
     '\n * generated at: ' + new Date().toISOString() + '\n */\n';
 };
 
 // given the contents of a file as a string, returns a new string
-CustomHeaderPlugin.prototype.processString = function(fileContentsString, relativePath) {
+CustomHeaderPlugin.prototype.processString = function (fileContentsString, relativePath) {
   return header(relativePath) + fileContentsString;
 }
 

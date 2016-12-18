@@ -209,7 +209,7 @@ export default {
 
 - TODO
 
-### Heroku & Travis ([Docs](https://docs.travis-ci.com/user/deployment/heroku/))
+### Continuous Integration with Github & Heroku & Travis ([Docs](https://docs.travis-ci.com/user/deployment/heroku/))
 
 ```bash
 # install travis gem
@@ -223,6 +223,39 @@ heroku buildpacks:set https://codon-buildpacks.s3.amazonaws.com/buildpacks/herok
 # push to heroku remote
 git push heroku master
 ```
+
+## Server Side Rendering
+
+- [Ember FastBoot](https://ember-fastboot.com/)
+
+  ```bash
+  # installation
+  ember install ember-cli-fastboot
+  # run
+  ember fastboot --serve-assets
+  ```
+
+  - Uses [Simple-DOM](https://github.com/ember-fastboot/simple-dom) to extract only core DOM features (+perfomance)
+  - FastBoot is the only global
+  - Replace libs that depend on full DOM implementation with their node counterparts
+  - Use fetch instead of $.ajax
+  - Use Guards like
+
+    ```js
+      // Guard when running the app
+      if (typeof FastBoot === 'undefined') {
+        // Run in Browser
+      } else {
+        // Run in FastBoot
+      }
+
+      // Guard when building the app
+      if (!process.env.EMBER_CLI_FASTBOOT) {
+        // Build for Browser
+      } else {
+        // Build for FastBoot
+      }
+    ```
 
 ## License
 
