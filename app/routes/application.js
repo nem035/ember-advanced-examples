@@ -8,7 +8,11 @@ const {
 export default Route.extend({
 
   setupController(controller) {
-    // Grab the request headers from the container
-    controller.set('headers', getOwner(this).lookup('data:request-headers'));
+    const container = getOwner(this);
+
+    controller.setProperties({
+      location: container.lookup('data:location'),
+      headers: container.lookup('data:request-headers')
+    });
   }
 });

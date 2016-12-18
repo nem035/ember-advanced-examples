@@ -37,10 +37,6 @@ export function initialize(application) {
         }, {
           instantiate: false
         });
-
-        // inject geolocation data into all all factories of the type 'controller'
-        // with the name 'location'
-        application.inject('controller', 'location', 'data:location');
       });
     } else {
       Ember.runInDebug(() => {

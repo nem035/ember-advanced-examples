@@ -1,6 +1,14 @@
+import Ember from 'ember';
+
 export function initialize(appInstance) {
+
   // lookup the fastboot service
   const fastboot = appInstance.lookup('service:fastboot');
+
+  // satisfy phantomJS test environment
+  if (!fastboot) {
+    return;
+  }
 
   // obtain the shoebox from the fastboot service
   const shoebox = fastboot.get('shoebox');
@@ -19,6 +27,16 @@ export function initialize(appInstance) {
       host: headers.get('host'),
       userAgent: headers.get('user-agent')
     };
+
+    // log information if we're in debug environment
+    Ember.runInDebug(() => {
+      Ember.Logger.info(
+        `registering "data:request-headers": {
+          host: ${storedHeaders.host},
+          userAgent: ${storedHeaders.userAgent}
+        }`
+      );
+    });
 
     // register request headers in the container
     appInstance.register('data:request-headers', storedHeaders, {
@@ -45,8 +63,20 @@ export function initialize(appInstance) {
     // otherwise we're not on the server
     // if the shoebox is not there then
     // we're hosting a static file and cannot obtain request headers
+    const storedHeaders = JSON.parse(shoeboxStore.headers);
 
-    appInstance.register('data:request-headers', JSON.parse(shoeboxStore.headers), {
+
+    // log information if we're in debug environment
+    Ember.runInDebug(() => {
+      Ember.Logger.info(
+        `registering "data:request-headers": {
+          host: ${storedHeaders.host},
+          userAgent: ${storedHeaders.userAgent}
+        }`
+      );
+    });
+
+    appInstance.register('data:request-headers', storedHeaders, {
       instantiate: false
     });
   }

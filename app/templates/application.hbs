@@ -2,14 +2,16 @@
 <p>
   <h3>Your Coordinates</h3>
   <p>
-    <span><strong>latitude</strong> <code>{{lat}}</code></span>
-    <span><strong>longitude</strong> <code>{{lng}}</code></span>
+    {{log lat lng}}
+    <span><strong>latitude</strong> {{data-box data=lat}}</span>
+    <span><strong>longitude</strong> {{data-box data=lng}}</span>
   </p>
   <hr />
   <h3>Your Headers</h3>
   <p>
-    <span><strong>Host</strong> <code>{{host}}</code></span>
-    <span><strong>UserAgent</strong> <code>{{userAgent}}</code></span>
+    {{log host userAgent}}
+    <span><strong>Host</strong> {{data-box data=host}}</span>
+    <span><strong>UserAgent</strong> {{data-box data=userAgent}}</span>
   </p>
   <hr />
   <img src="/assets/images/builtwith.png" />
