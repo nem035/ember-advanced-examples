@@ -2,6 +2,8 @@
 
 Notes, patterns and examples for developing Ember applications.
 
+[Demo App](https://ember-advanced-examples.herokuapp.com/)
+
 ## Container
 
 ### Debugging
