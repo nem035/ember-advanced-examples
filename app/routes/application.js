@@ -1,11 +1,12 @@
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import Ember from 'ember';
 
 const {
   Route,
-  getOwner,
+  getOwner
 } = Ember;
 
-export default Route.extend({
+export default Route.extend(ApplicationRouteMixin, {
 
   setupController(controller) {
     const container = getOwner(this);

@@ -1,14 +1,38 @@
 /*jshint node:true*/
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
-var CustomHeaderPlugin = require('./plugins/custom-header');
+var stew = require('broccoli-stew');
+var pkg = require('./package.json');
+var path = require('path');
+
+function appendHeader(content, relativePath) {
+  return relativePath.includes('fastboot') ?
+    content :
+    `/**
+* ${path.basename(relativePath)}
+*
+* author: ${pkg.author}
+* generated at: ${new Date().toISOString()}
+*
+*/
+${content}`;
+}
 
 module.exports = function (defaults) {
   var app = new EmberApp(defaults, {
     fingerprint: {
-      exclude: ['images/builtwith.png'] // exclude fingerprinting for the tomster
-    }
+      exclude: ['images/nejo.jpg'] // exclude fingerprinting for the image
+    },
+
+    'ember-cli-qunit': {
+      useLintTree: false,
+    },
   });
 
-  return new CustomHeaderPlugin(app.toTree());
+  // add custom banner to each javascript and css file
+  return stew.map(
+    app.toTree(),
+    '**/*.{js,css}',
+    appendHeader
+  );
 };

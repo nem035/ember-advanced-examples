@@ -1,0 +1,21 @@
+{{#if isAuthenticated}}
+  <a {{action logoutAction}}>
+    Logout
+  </a>
+{{else}}
+  <a {{action loginAction}}>
+    Login with Github
+  </a>
+{{/if}}
+<div class="app-name">
+  Ember Advanced Examples
+</div>
+{{#if error}}
+  <div class="banner error">
+    😢 {{error}}
+    <span onclick={{action clearErrorAction}} title="Dismiss">&times;</span>
+</div> {{else if isAuthenticated}}
+<div class="banner success">
+  😊 GitHub token: {{token}}
+</div>
+{{/if}}

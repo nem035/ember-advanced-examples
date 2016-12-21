@@ -15,9 +15,12 @@ export function initialize(application) {
         coords
       }) => {
         const {
-          latitude: lat,
-          longitude: lng
+          latitude,
+          longitude
         } = coords;
+
+        const lat = latitude.toPrecision(7);
+        const lng = longitude.toPrecision(7);
 
         // we got the geolocation data, application is ready to continue booting
         application.advanceReadiness();

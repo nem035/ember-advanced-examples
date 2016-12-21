@@ -1,8 +1,130 @@
-code {
-  background: #018bbc;
-  border-radius: 3px;
-  box-shadow: 0 1px 2px #aaa;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: hsla(88, 50%, 53%, 0.24);
+  color: hsla(88, 50%, 25%, 1);
+  margin: 0;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+}
+
+hr {
+  height: 1px;
+  border: none;
+  margin: 40px 0;
+  background-color: hsla(114, 91%, 18%, 0.48);
+}
+
+.heading {
+  color: hsla(88, 50%, 25%, 1);
+}
+
+.navbar {
+  background-color: hsla(88, 50%, 53%, 1);
   color: #fff;
-  margin: 0 5px;
-  padding: 5px 10px;
+  padding: 10px 20px;
+  transition: margin-top .3s ease-in;
+}
+
+.navbar.has-error {
+  margin-top: 26px;
+}
+
+.banner {
+  position: absolute;
+  right: 0;
+  left: 0;
+  padding: 0 10px;
+  top: 0;
+}
+
+.banner.error {
+  background-color: #ff3d00;
+  animation: animBanner .3s ease-in;
+}
+
+.banner span {
+  font-size: 1.5em;
+  position: absolute;
+  right: 10px;
+  top: -.15em;
+}
+
+.banner span:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+@keyframes animBanner {
+  0% {
+    height: 0;
+    font-size: 0em;
+  }
+  100% {
+    height: 28px;
+    font-size: 1em;
+  }
+}
+
+.app-name {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.navbar a {
+  color: hsla(88, 50%, 33%, 1);
+  border: 1px #DDD solid;
+  border-radius: 7px;
+  background-color: #fff;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  float: right;
+  margin-top: -4px;
+  transition: background-color .2s ease-in, color .2s ease-in;
+}
+
+.navbar a:hover {
+  background-color: hsla(88, 50%, 33%, 1);
+  color: #fff;
+  cursor: pointer;
+}
+
+.container {
+  padding: 20px;
+}
+
+.navbar-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-options li {
+  background-color: #fff;
+  color: hsla(88, 50%, 33%, 1);
+  display: inline-block;
+  font-weight: bold;
+  padding: 5px 15px;
+}
+
+.navbar-options li.active {
+  background-color: hsla(88, 50%, 33%, 1);
+  color: #fff;
+}
+
+.navbar-options li:not(.active):hover {
+  background-color: hsla(88, 50%, 33%, .5);
+  color: #fff;
+  cursor: pointer;
+}
+
+code {
+  background-color: hsla(88, 50%, 53%, 0.24);
+  border-radius: 3px;
+  font-family: Menlo, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Courier, monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.5em;
+  margin: 0 0.1em;
+  color: hsla(88, 50%, 23%, 1);
 }

@@ -171,12 +171,11 @@ export default {
 
     - we are building a composable (chain) pipeline that will run later
 
-  - [See Plugin Example](https://github.com/nem035/ember-advanced-examples/blob/master/plugins/custom-header.js)
+- [See Plugin Example](https://github.com/nem035/ember-advanced-examples/blob/master/plugins/custom-header.js)
 
 ### Debugging
 
 - Use [Broccoli Stew](https://github.com/stefanpenner/broccoli-stew)
-  - Main methods to use are [log](https://github.com/stefanpenner/broccoli-stew/blob/master/lib/log.js#L27) and [debug](https://github.com/stefanpenner/broccoli-stew/blob/master/lib/debug.js#L12)
 
   ```js
   // ember-cli-build.js
@@ -234,7 +233,7 @@ git push heroku master
   # installation
   ember install ember-cli-fastboot
   # run
-  ember fastboot --serve-assets
+  ember fastboot --serve-assets # The --serve-assets option tells the FastBoot server to serve CSS, JavaScript and images in addition to just rendering the HTML.
   ```
 
   - Uses [Simple-DOM](https://github.com/ember-fastboot/simple-dom) to extract only core DOM features (+perfomance)
@@ -243,77 +242,125 @@ git push heroku master
   - Use fetch instead of $.ajax
   - Use Guards like
 
-    ```js
-      // Guard when running the app
-      if (typeof FastBoot === 'undefined') {
-        // Run in Browser
-      } else {
-        // Run in FastBoot
-      }
+  ```js
+    // Guard when running the app
+    if (typeof FastBoot === 'undefined') {
+      // Run in Browser
+    } else {
+      // Run in FastBoot
+    }
 
-      // Guard when building the app
-      if (!process.env.EMBER_CLI_FASTBOOT) {
-        // Build for Browser
-      } else {
-        // Build for FastBoot
-      }
+    // Guard when building the app
+    if (!process.env.EMBER_CLI_FASTBOOT) {
+      // Build for Browser
+    } else {
+      // Build for FastBoot
+    }
+  ```
+
+  [Guarding Example](https://github.com/nem035/ember-advanced-examples/blob/master/app/initializers/geolocation.js#L7)
+
+- Server data on the client
+
+```js
+export default Ember.Route.extend({
+  fastboot: Ember.inject.service(),
+
+  model() {
+    const headers = this.get('fastboot.request.headers');
+    const xRequestHeader = headers.get('X-Request');
+  }
+})
+```
+
+- We can use the [Shoebox](https://github.com/ember-fastboot/fastboot#the-shoebox) (prevents duplicate requests from server and client)
+  - stores data that get serialized into meta/script tags within the html on the server
+    and get grabbed by the client once the client is ready and allow access to
+    this data via a service
+
+    ```html
+    <!-- html when rendering on the server -->
+    <script type="fastboot/shoebox" id="shoebox-store-1">
+      ... json data goes here
+    </script>
     ```
-
-    [Guarding Example](https://github.com/nem035/ember-advanced-examples/blob/master/app/initializers/geolocation.js#L7)
-
-    - Server data on the client
 
     ```js
     export default Ember.Route.extend({
       fastboot: Ember.inject.service(),
 
-      model() {
-        const headers = this.get('fastboot.request.headers');
-        const xRequestHeader = headers.get('X-Request');
+      model(params) {
+        // consuming data from the shoebox via the fastboot service
+        const shoebox = this.get('fastboot.shoebox');
+        // retrieve the shoebox we need
+        const shoeboxStore = shoebox.retrieve('shoebox-store-1');
+
+        if (this.get('fastboot.isFastBoot')) {
+          // if rendering on the fastboot server
+          return this.store.findRecord('stuff', params.id)
+            .then((data) => {
+              // lazily create the store
+              if (!shoeboxStore) {
+                shoeboxStore = {};
+                shoebox.put('shoebox-store-1', shoeboxStore);
+              }
+
+              // put the data in the store
+              shoeboxStore[params.id] = data.toJSON();
+            });
+        }
       }
     })
     ```
 
-  - We can use the [Shoebox](https://github.com/ember-fastboot/fastboot#the-shoebox) (prevents duplicate requests from server and client)
-    - stores data that get serialized into meta/script tags within the html on the server
-      and get grabbed by the client once the client is ready and allow access to
-      this data via a service
+    - Use the [ember-data-fastboot](https://github.com/cardstack/ember-data-fastboot) addon for serializing the contents of your ember-data Store within the Fastboot shoebox.
 
-      ```html
-      <!-- html when rendering on the server -->
-      <script type="fastboot/shoebox" id="shoebox-store-1">
-        ... json data goes here
-      </script>
-      ```
+- ([Shoebox and server data on the client example](https://github.com/nem035/ember-advanced-examples/blob/master/app/instance-initializers/request-headers.js))
 
-      ```js
-      export default Ember.Route.extend({
-        fastboot: Ember.inject.service(),
+## Ember Data Store
 
-        model(params) {
-          // consuming data from the shoebox via the fastboot service
-          const shoebox = this.get('fastboot.shoebox');
-          // retrieve the shoebox we need
-          const shoeboxStore = shoebox.retrieve('shoebox-store-1');
+- Methods
 
-          if (this.get('fastboot.isFastBoot')) {
-            // if rendering on the fastboot server
-            return this.store.findRecord('stuff', params.id)
-              .then((data) => {
-                // lazily create the store
-                if (!shoeboxStore) {
-                  shoeboxStore = {};
-                  shoebox.put('shoebox-store-1', shoeboxStore);
-                }
+```js
 
-                // put the data in the store
-                shoeboxStore[params.id] = data.toJSON();
-              });
-          }
-        }
-      })
-      ```
-  - ([Shoebox and server data on the client example](https://github.com/nem035/ember-advanced-examples/blob/master/app/instance-initializers/request-headers.js))
+  // singular model (using the id)
+  store.fetchRecord(modelName, id); // skip cache, make request
+  store.peekRecord(modelName, id);  // take from cache, no request
+  store.findRecord(modelName, id);  // cache first, then reload in background
+
+  // multiple models
+  store.queryRecord(modelName, query);
+
+  // all models
+  store.fetchAll(modelName);
+  store.peekAll(modelName);
+  store.findAll(modelName);
+
+  // equivalent to peekRecord
+  store.findRecord(modelName, id, {
+    backgroundReload: false
+  });
+
+  // equivalent to fetchRecord
+  store.findRecord(modelName, id, {
+    reload: false
+  });
+
+```
+
+## Authentication
+
+- [Ember Simple Auth](https://ember-simple-auth.com/) (and [Torii](https://github.com/Vestorly/torii))
+
+  - [**Session-Service**](https://github.com/simplabs/ember-simple-auth#authorizers): main interface to the library. It defines the `authenticate`, `invalidate` and `authorize` methods as well as the session events.
+  - [**Authenticators**](https://github.com/simplabs/ember-simple-auth#authenticators): implements the concrete steps necessary to authenticate the session
+  - [**Authorizers**](https://github.com/simplabs/ember-simple-auth#authorizers): use the session data acquired by the authenticator to construct authorization data that can be injected into outgoing network requests.
+  - [**Session-Stores**](https://github.com/simplabs/ember-simple-auth#session-stores): persists the session state via a session store so it survives page reloads
+
+# Linting
+
+- Replace jshint with eslint - [ember-cli-eslint](https://github.com/ember-cli/ember-cli-eslint)
+
 
 ## License
 
