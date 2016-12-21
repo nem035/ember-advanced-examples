@@ -1,7 +1,13 @@
+import {
+  module,
+  test,
+} from 'qunit';
+
 import Ember from 'ember';
-import { initialize } from 'ember-advanced-examples/initializers/geolocation';
-import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
+import {
+  initialize,
+} from 'ember-advanced-examples/initializers/geolocation';
 
 module('Unit | Initializer | geolocation', {
   beforeEach() {
@@ -10,13 +16,14 @@ module('Unit | Initializer | geolocation', {
       this.application.deferReadiness();
     });
   },
+
   afterEach() {
     destroyApp(this.application);
   }
 });
 
 // Replace this with your real tests.
-test('it works', function(assert) {
+test('it works', function (assert) {
   initialize(this.application);
 
   // you would normally confirm the results of the initializer here

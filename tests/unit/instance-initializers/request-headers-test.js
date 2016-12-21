@@ -1,7 +1,13 @@
+import {
+  module,
+  test,
+} from 'qunit';
+
 import Ember from 'ember';
-import { initialize } from 'ember-advanced-examples/instance-initializers/request-headers';
-import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
+import {
+  initialize,
+} from 'ember-advanced-examples/instance-initializers/request-headers';
 
 module('Unit | Instance Initializer | request headers', {
   beforeEach() {
@@ -10,6 +16,7 @@ module('Unit | Instance Initializer | request headers', {
       this.appInstance = this.application.buildInstance();
     });
   },
+
   afterEach() {
     Ember.run(this.appInstance, 'destroy');
     destroyApp(this.application);
@@ -17,7 +24,7 @@ module('Unit | Instance Initializer | request headers', {
 });
 
 // Replace this with your real tests.
-test('it works', function(assert) {
+test('it works', function (assert) {
   initialize(this.appInstance);
 
   // you would normally confirm the results of the initializer here

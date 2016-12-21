@@ -27,7 +27,7 @@ hr {
   transition: margin-top .3s ease-in;
 }
 
-.navbar.has-error {
+.navbar.has-banner {
   margin-top: 26px;
 }
 
@@ -37,11 +37,15 @@ hr {
   left: 0;
   padding: 0 10px;
   top: 0;
+  animation: animBanner .3s ease-in;
 }
 
 .banner.error {
   background-color: #ff3d00;
-  animation: animBanner .3s ease-in;
+}
+
+.banner.success {
+  background-color: #00c853;
 }
 
 .banner span {

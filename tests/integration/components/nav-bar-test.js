@@ -1,25 +1,22 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import {
+  moduleForComponent,
+  test,
+} from 'ember-qunit';
+
 import hbs from 'htmlbars-inline-precompile';
 
 moduleForComponent('nav-bar', 'Integration | Component | nav bar', {
   integration: true
 });
 
-test('it renders', function(assert) {
+test('it renders', function (assert) {
 
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+  this.render(hbs `{{nav-bar}}`);
 
-  this.render(hbs`{{nav-bar}}`);
+  assert.equal(this.$().find('a').text().trim(), 'Login with Github');
 
-  assert.equal(this.$().text().trim(), '');
+  this.render(hbs `{{nav-bar isAuthenticated=true token="123"}}`);
 
-  // Template block usage:
-  this.render(hbs`
-    {{#nav-bar}}
-      template block text
-    {{/nav-bar}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$().find('a').text().trim(), 'Logout');
+  assert.equal(this.$().find('.banner').text().trim(), '😊 GitHub token: 123');
 });
