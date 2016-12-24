@@ -1,4 +1,4 @@
-var auth = require('./auth');
+/* eslint no-undef: "off" */
 
 module.exports = function (environment) {
   var ENV = {
@@ -23,10 +23,14 @@ module.exports = function (environment) {
     },
 
     torii: {
+      sessionServiceName: 'session',
       providers: {
-        'github-oauth2': Object.assign({
+        'github-oauth2': {
+          apiKey: process.env['GITHUB_CLIENT_ID'],
+          redirectUri: process.env['GITHUB_REDIRECT_URI'],
+          tokenExchangeUri: process.env['GITHUB_TOKEN_EXCHANGE_URL'],
           scope: 'user'
-        }, auth(environment))
+        }
       }
     },
 
@@ -52,10 +56,6 @@ module.exports = function (environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
-  }
-
-  if (environment === 'production') {
-
   }
 
   return ENV;

@@ -7,6 +7,7 @@ const {
 
 export default Route.extend(AuthenticatedRouteMixin, {
   model() {
-    return 'Secret';
-  }
+    // ember-data-github addon uses "#" as a special ID value to indicate the current user.
+    return this.get('store').findRecord('github-user', '#');
+  },
 });

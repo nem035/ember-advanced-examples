@@ -4,18 +4,15 @@
   </a>
 {{else}}
   <a {{action loginAction}}>
-    Login with Github
+    <img width="16" height="16" src="/assets/images/GitHub-Mark-32px.png" /> Login
   </a>
 {{/if}}
 <div class="app-name">
   Ember Advanced Examples
 </div>
 {{#if error}}
-  <div class="banner error">
+  <div class="banner-error">
     😢 {{error}}
     <span onclick={{action clearErrorAction}} title="Dismiss">&times;</span>
-</div> {{else if isAuthenticated}}
-<div class="banner success">
-  😊 GitHub token: {{token}}
 </div>
 {{/if}}

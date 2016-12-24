@@ -1,24 +1,12 @@
+{{ember-load-remover}}
 {{#nav-bar isAuthenticated=session.isAuthenticated error=error token=session.data.authenticated.authorizationCode loginAction=(action
   "login") logoutAction=(action "logout") clearErrorAction=(action "clearError")}}
 
 {{/nav-bar}}
-<div class="container">
+<div class="container animated fadeIn">
   <ul class="navbar-options">
     {{#link-to "index" tagName="li" }}Home{{/link-to}}
-    {{#link-to "secret" tagName="li" }}Secret{{/link-to}}
+    {{#link-to "account" tagName="li" }}Account{{/link-to}}
   </ul>
-  <p>
-    <h3 class="heading">Your Coordinates</h3>
-    <p>
-      <span>latitude: {{data-box data=lat}}</span>&nbsp;|&nbsp;
-      <span>longitude: {{data-box data=lng}}</span>
-    </p>
-  </p>
-  <hr />
-  <h3 class="heading">Your Headers</h3>
-  <p>
-    <span>Host: {{data-box data=host}}</span>&nbsp;|&nbsp;
-    <span>UserAgent: {{data-box data=userAgent}}</span>
-  </p>
-  <hr /> {{outlet}}
+  {{outlet}}
 </div>

@@ -2,18 +2,7 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 import Ember from 'ember';
 
 const {
-  Route,
-  getOwner
+  Route
 } = Ember;
 
-export default Route.extend(ApplicationRouteMixin, {
-
-  setupController(controller) {
-    const container = getOwner(this);
-
-    controller.setProperties({
-      location: container.lookup('data:location'),
-      headers: container.lookup('data:request-headers')
-    });
-  }
-});
+export default Route.extend(ApplicationRouteMixin, {});

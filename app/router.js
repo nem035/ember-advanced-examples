@@ -6,8 +6,8 @@ const Router = Ember.Router.extend({
   rootURL: config.rootURL
 });
 
-Router.map(function() {
-  this.route('secret');
+Router.map(function () {
+  this.route('account');
 });
 
 export default Router;

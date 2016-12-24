@@ -2,20 +2,12 @@ import Ember from 'ember';
 
 const {
   Controller,
-  computed: {
-    readOnly
-  },
   inject: {
     service
   }
 } = Ember;
 
 export default Controller.extend({
-  lat: readOnly('location.lat'),
-  lng: readOnly('location.lng'),
-
-  host: readOnly('headers.host'),
-  userAgent: readOnly('headers.userAgent'),
 
   session: service(),
   error: undefined,
@@ -24,6 +16,7 @@ export default Controller.extend({
     login() {
       this.get('session')
         .authenticate('authenticator:torii', 'github')
+        .then(() => this.transitionToRoute('account'))
         .catch((error) => {
           this.set('error', error);
         });

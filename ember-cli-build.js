@@ -27,6 +27,19 @@ module.exports = function (defaults) {
     'ember-cli-qunit': {
       useLintTree: false,
     },
+
+    dotEnv: {
+      clientAllowedKeys: [
+        'GITHUB_CLIENT_ID',
+        'GITHUB_REDIRECT_URI',
+        'GITHUB_TOKEN_EXCHANGE_URL'
+      ],
+      path: {
+        development: './.env.development',
+        test: './.env.test',
+        production: './.env.production'
+      }
+    }
   });
 
   // add custom banner to each javascript and css file

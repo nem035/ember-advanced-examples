@@ -1,0 +1,14 @@
+<div class="github-account">
+  <div class="github-name">
+    <h3 class="heading">{{model.name}}</h3>
+  </div>
+  <div class="github-avatar animated flipInY">
+    <a href="{{model.url}}" target="_blank">
+      <img src= {{model.avatarUrl}} width="315" height="315" />
+    </a>
+  </div>
+  <div class="github-stats">
+    {{github-stat name="Public Repos" value=model.publicRepos}} {{github-stat name="Public Gists" value=model.publicGists}} {{github-stat
+    name="Followers" value=model.followers}} {{github-stat name="Following" value=model.following}}
+  </div>
+</div>

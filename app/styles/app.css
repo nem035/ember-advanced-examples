@@ -6,7 +6,8 @@ body {
   background-color: hsla(88, 50%, 53%, 0.24);
   color: hsla(88, 50%, 25%, 1);
   margin: 0;
-  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
 }
 
 hr {
@@ -21,7 +22,7 @@ hr {
 }
 
 .navbar {
-  background-color: hsla(88, 50%, 53%, 1);
+  background-color: hsla(88, 50%, 33%, 1);
   color: #fff;
   padding: 10px 20px;
   transition: margin-top .3s ease-in;
@@ -31,31 +32,24 @@ hr {
   margin-top: 26px;
 }
 
-.banner {
-  position: absolute;
-  right: 0;
+.banner-error {
+  animation: animBanner .3s ease-in;
+  background-color: #ff3d00;
   left: 0;
   padding: 0 10px;
+  position: absolute;
+  right: 0;
   top: 0;
-  animation: animBanner .3s ease-in;
 }
 
-.banner.error {
-  background-color: #ff3d00;
-}
-
-.banner.success {
-  background-color: #00c853;
-}
-
-.banner span {
+.banner-error span {
   font-size: 1.5em;
   position: absolute;
   right: 10px;
   top: -.15em;
 }
 
-.banner span:hover {
+.banner-error span:hover {
   cursor: pointer;
   opacity: .8;
 }
@@ -77,19 +71,18 @@ hr {
 }
 
 .navbar a {
-  color: hsla(88, 50%, 33%, 1);
-  border: 1px #DDD solid;
-  border-radius: 7px;
   background-color: #fff;
-  text-transform: uppercase;
-  padding: 0.5rem 1rem;
+  border-radius: 7px;
+  border: 1px #DDD solid;
+  color: hsla(88, 50%, 33%, 1);
   float: right;
   margin-top: -4px;
+  padding: 0.5rem 1rem;
   transition: background-color .2s ease-in, color .2s ease-in;
 }
 
 .navbar a:hover {
-  background-color: hsla(88, 50%, 33%, 1);
+  background-color: hsla(88, 50%, 43%, 1);
   color: #fff;
   cursor: pointer;
 }
@@ -110,6 +103,8 @@ hr {
   display: inline-block;
   font-weight: bold;
   padding: 5px 15px;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 .navbar-options li.active {
@@ -124,11 +119,93 @@ hr {
 }
 
 code {
-  background-color: hsla(88, 50%, 53%, 0.24);
   border-radius: 3px;
   font-family: Menlo, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Courier, monospace;
   font-size: 0.9em;
   padding: 0.2em 0.5em;
   margin: 0 0.1em;
   color: hsla(88, 50%, 23%, 1);
+}
+
+.box {
+  margin-top: 15px;
+}
+
+.navbar-options,
+.best-bud,
+.box-container,
+.github-account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.best-bud,
+.box-container,
+.github-account {
+  flex-direction: column;
+}
+
+.github-stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+}
+
+.github-avatar img {
+  border-radius: 3px;
+  border: 1px solid #aaa;
+}
+
+.github-stat,
+.box,
+.navbar-options li {
+  max-width: 30%;
+  min-width: 30%;
+}
+
+.github-stat,
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: monospace;
+  background: #fff;
+  padding: 10px;
+  border: 1px solid #aaa;
+  margin: 5px;
+}
+
+.github-stat .github-stat-name {
+  font-weight: bold;
+}
+
+.github-stat:nth-of-type(1) {
+  animation-delay: .1s
+}
+
+.github-stat:nth-of-type(2) {
+  animation-delay: .3s
+}
+
+.github-stat:nth-of-type(3) {
+  animation-delay: .7s
+}
+
+.github-stat:nth-of-type(4) {
+  animation-delay: 1s
+}
+
+@media (max-width: 768px) {
+  .box {
+    max-width: 100%;
+    min-width: 100%;
+  }
+  .navbar-options li {
+    max-width: calc(50% - 5px);
+    min-width: calc(50% - 5px);
+  }
 }

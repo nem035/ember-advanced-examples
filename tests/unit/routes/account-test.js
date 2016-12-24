@@ -3,7 +3,7 @@ import {
   test,
 } from 'ember-qunit';
 
-moduleFor('route:secret', 'Unit | Route | secret', {
+moduleFor('route:account', 'Unit | Route | account', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
 });

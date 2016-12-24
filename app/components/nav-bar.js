@@ -16,5 +16,5 @@ export default Component.extend({
   // local
   tagName: 'nav',
   classNames: ['navbar'],
-  classNameBindings: ['error:has-banner', 'isAuthenticated:has-banner']
+  classNameBindings: ['error:has-banner']
 });

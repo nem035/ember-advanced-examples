@@ -13,10 +13,9 @@ test('it renders', function (assert) {
 
   this.render(hbs `{{nav-bar}}`);
 
-  assert.equal(this.$().find('a').text().trim(), 'Login with Github');
+  assert.equal(this.$().find('a').text().trim(), 'Login');
 
   this.render(hbs `{{nav-bar isAuthenticated=true token="123"}}`);
 
   assert.equal(this.$().find('a').text().trim(), 'Logout');
-  assert.equal(this.$().find('.banner').text().trim(), '😊 GitHub token: 123');
 });
