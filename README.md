@@ -357,10 +357,19 @@ export default Ember.Route.extend({
   - [**Authorizers**](https://github.com/simplabs/ember-simple-auth#authorizers): use the session data acquired by the authenticator to construct authorization data that can be injected into outgoing network requests.
   - [**Session-Stores**](https://github.com/simplabs/ember-simple-auth#session-stores): persists the session state via a session store so it survives page reloads
 
-# Linting
+  - This application has Github Auth support using Ember Simple Auth and [ember-data-github](https://github.com/elwayman02/ember-data-github)
+
+## Environment
+
+- [ember-cli-dotenv](https://github.com/fivetanley/ember-cli-dotenv) for environment files.
+
+## Splash Screen
+
+- [ember-load](https://github.com/mike-north/ember-load). See [index.html](https://github.com/nem035/ember-advanced-examples/blob/master/app/index.html) for an example.
+
+## Linting
 
 - Replace jshint with eslint - [ember-cli-eslint](https://github.com/ember-cli/ember-cli-eslint)
-
 
 ## License
 
